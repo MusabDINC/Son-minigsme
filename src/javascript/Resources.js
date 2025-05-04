@@ -86,6 +86,9 @@ export default class Resources extends EventEmitter
             // { name: 'carDefaultBunnyEarLeft', source: './models/car/default/bunnyEarLeft.glb' },
             // { name: 'carDefaultBunnyEarRight', source: './models/car/default/bunnyEarRight.glb' },
 
+            // Togg model
+            { name: 'carToggChassis', source: './models/car/togg/togg.glb' },
+
             // Car default
             { name: 'carCyberTruckChassis', source: './models/car/cyberTruck/chassis.glb' },
             { name: 'carCyberTruckWheel', source: './models/car/cyberTruck/wheel.glb' },
@@ -195,6 +198,7 @@ export default class Resources extends EventEmitter
             { name: 'areaOpen', source: './models/area/open.png', type: 'texture' },
             { name: 'areaReset', source: './models/area/reset.png', type: 'texture' },
             { name: 'areaQuestionMark', source: './models/area/questionMark.png', type: 'texture' },
+            { name: 'keyEnter', source: './images/keyEnter.png', type: 'texture' },
 
             // Tiles
             { name: 'tilesABase', source: './models/tiles/a/base.glb' },
