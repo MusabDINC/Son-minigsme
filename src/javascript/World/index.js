@@ -23,6 +23,7 @@ import Sounds from './Sounds.js'
 import gsap from 'gsap'
 import EasterEggs from './EasterEggs.js'
 import BoundaryWall from './BoundaryWall.js'   
+import GreenBox from './GreenBox.js'
 
 export default class World
 {
@@ -78,7 +79,7 @@ export default class World
         this.setWalls()
         this.setSections()
         this.setEasterEggs()
-     
+        this.setGreenBox()
     }
 
     setReveal()
@@ -444,5 +445,18 @@ export default class World
             physics: this.physics
         })
         this.container.add(this.easterEggs.container)
+    }
+
+    setGreenBox()
+    {
+        this.greenBox = new GreenBox({
+            time: this.time,
+            resources: this.resources,
+            objects: this.objects,
+            physics: this.physics,
+            sounds: this.sounds,
+            debug: this.debugFolder
+        })
+        this.container.add(this.greenBox.container)
     }
 }
