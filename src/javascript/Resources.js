@@ -229,6 +229,10 @@ export default class Resources extends EventEmitter
             // // Egg
             // { name: 'eggBase', source: './models/egg/base.glb' },
             // { name: 'eggCollision', source: './models/egg/collision.glb' },
+
+            // GreenBox (GreenScreenRoom)
+            { name: 'greenBoxModel', source: './models/modeller/greenbox/GreenBox.glb' },
+            { name: 'greenBoxCollision', source: './models/modeller/greenbox/GreenBoxCollision.glb' },
         ])
 
         this.loader.on('fileEnd', (_resource, _data) =>
