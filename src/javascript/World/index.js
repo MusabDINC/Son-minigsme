@@ -260,6 +260,41 @@ export default class World
             debug: this.debugFolder,
             time: this.time
         })
+        
+        // Uzamsal sesleri ekleme kısmı.
+        if(this.sounds.spatialContainer) {
+            this.container.add(this.sounds.spatialContainer)
+            console.log('Uzamsal sesler sahneye eklendi.')
+        }
+        
+        // Uzamsal ses için aracın konum takibi.
+        // Daha az sıklıkla güncelleme yaparak performans iyileştirmesi
+        let lastUpdateTime = 0;
+        const UPDATE_INTERVAL = 100; // milisaniye cinsinden güncelleme aralığı (100ms = 0.1 saniye)
+        
+        this.time.on('tick', () => {
+            const now = Date.now();
+            
+            // Sadece belirli aralıklarla güncelle
+            if (now - lastUpdateTime > UPDATE_INTERVAL) {
+                lastUpdateTime = now;
+                
+                if(this.car && this.car.position) {
+                    // Dinleyici pozisyonunu araç pozisyonuna ayarla
+                    Howler.pos(
+                        this.car.position.x,
+                        this.car.position.y,
+                        this.car.position.z
+                    )
+                    
+                    // Uzamsal ses kaynağını güncelle - burası önemli
+                    if(this.sounds && this.sounds.updateSpatialPosition) {
+                        // Ses kaynağı aracın karşısına yerleştir
+                        this.sounds.updateSpatialPosition('spatialSound1', -20, 0, 0)
+                    }
+                }
+            }
+        })
     }
 
     setAxes()
