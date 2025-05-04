@@ -47,6 +47,14 @@ export default class Application
         this.config = {}
         this.config.debug = window.location.hash === '#debug'
         this.config.cyberTruck = window.location.hash === '#cybertruck'
+        
+        // Togg modelini default olarak ayarla
+        if(window.location.hash === '#default') {
+            this.config.togg = false; // Eski arabayı göstermek için #default parametresi
+        } else {
+            this.config.togg = true; // Varsayılan olarak Togg göster
+        }
+        
         this.config.touch = false
 
         window.addEventListener('touchstart', () =>

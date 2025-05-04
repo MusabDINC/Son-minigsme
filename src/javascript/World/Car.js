@@ -46,27 +46,15 @@ export default class Car
     {
         this.models = {}
 
-        // Cyber truck
-        if(this.config.cyberTruck)
         {
-            this.models.chassis = this.resources.items.carCyberTruckChassis
-            this.models.antena = this.resources.items.carCyberTruckAntena
-            this.models.backLightsBrake = this.resources.items.carCyberTruckBackLightsBrake
-            this.models.backLightsReverse = this.resources.items.carCyberTruckBackLightsReverse
-            this.models.wheel = this.resources.items.carCyberTruckWheel
-        }
-
-        // Default
-        else
-        {
-            this.models.chassis = this.resources.items.carDefaultChassis
+            this.models.chassis = this.resources.items.carToggChassis
+            // Diğer togg parçaları yoksa mevcut parçaları kullanabiliriz
             this.models.antena = this.resources.items.carDefaultAntena
-            // this.models.bunnyEarLeft = this.resources.items.carDefaultBunnyEarLeft
-            // this.models.bunnyEarRight = this.resources.items.carDefaultBunnyEarRight
             this.models.backLightsBrake = this.resources.items.carDefaultBackLightsBrake
             this.models.backLightsReverse = this.resources.items.carDefaultBackLightsReverse
             this.models.wheel = this.resources.items.carDefaultWheel
         }
+    
     }
 
     setMovement()
@@ -106,8 +94,24 @@ export default class Car
     setChassis()
     {
         this.chassis = {}
-        this.chassis.offset = new THREE.Vector3(0, 0, - 0.28)
-        this.chassis.object = this.objects.getConvertedMesh(this.models.chassis.scene.children)
+        
+        // Togg modeli için özel offset değeri (aşağı indir)
+        if(this.config.togg) {
+            this.chassis.offset = new THREE.Vector3(0, 0, -0.4)
+            // Togg modelini sağa-sola merkezle
+            this.chassis.object = this.objects.getConvertedMesh(this.models.chassis.scene.children)
+            
+            // Modelimizin pozisyonu yan tarafta kaymış olabilir, merkezleyelim
+            const boundingBox = new THREE.Box3().setFromObject(this.chassis.object);
+            const center = boundingBox.getCenter(new THREE.Vector3());
+            
+            // Sadece x ekseni üzerinde (sağ-sol) merkezleme yapıyoruz
+            this.chassis.object.position.x -= center.x;
+        } else {
+            this.chassis.offset = new THREE.Vector3(0, 0, -0.28)
+            this.chassis.object = this.objects.getConvertedMesh(this.models.chassis.scene.children)
+        }
+        
         this.chassis.object.position.copy(this.physics.car.chassis.body.position)
         this.chassis.oldPosition = this.chassis.object.position.clone()
         this.container.add(this.chassis.object)
